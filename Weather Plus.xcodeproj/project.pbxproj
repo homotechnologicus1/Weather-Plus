@@ -15,6 +15,7 @@
 		D8D7C32B25C44F3C0055513A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D8D7C32A25C44F3C0055513A /* Assets.xcassets */; };
 		D8D7C32E25C44F3C0055513A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D8D7C32C25C44F3C0055513A /* LaunchScreen.storyboard */; };
 		D8D7C33E25C45B0C0055513A /* CurrentWeather.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D7C33D25C45B0C0055513A /* CurrentWeather.swift */; };
+		D8E8846E25C54CCA000F72BF /* HourlyForecast.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E8846D25C54CCA000F72BF /* HourlyForecast.swift */; };
 		D8ECED6725C46D98002BACC4 /* GlobalHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8ECED6625C46D98002BACC4 /* GlobalHelpers.swift */; };
 /* End PBXBuildFile section */
 
@@ -31,6 +32,7 @@
 		D8D7C32D25C44F3C0055513A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D8D7C32F25C44F3C0055513A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D8D7C33D25C45B0C0055513A /* CurrentWeather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentWeather.swift; sourceTree = "<group>"; };
+		D8E8846D25C54CCA000F72BF /* HourlyForecast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourlyForecast.swift; sourceTree = "<group>"; };
 		D8ECED6625C46D98002BACC4 /* GlobalHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalHelpers.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -101,6 +103,7 @@
 			isa = PBXGroup;
 			children = (
 				D8D7C33D25C45B0C0055513A /* CurrentWeather.swift */,
+				D8E8846D25C54CCA000F72BF /* HourlyForecast.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -222,6 +225,7 @@
 				D8D7C32625C44F3B0055513A /* ViewController.swift in Sources */,
 				D8D7C32225C44F3B0055513A /* AppDelegate.swift in Sources */,
 				D8ECED6725C46D98002BACC4 /* GlobalHelpers.swift in Sources */,
+				D8E8846E25C54CCA000F72BF /* HourlyForecast.swift in Sources */,
 				D8D7C33E25C45B0C0055513A /* CurrentWeather.swift in Sources */,
 				D8D7C32425C44F3B0055513A /* SceneDelegate.swift in Sources */,
 			);

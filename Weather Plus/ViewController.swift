@@ -12,10 +12,9 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let currentWeather = CurrentWeather()
-        currentWeather.getCurrentWeather { (success) in
-            if success {
-                print("city is: ", currentWeather.city, currentWeather.currentTempo)
+        HourlyForecast.downloadDailyForecastWeather { (hourlyForecastArray) in
+            for data in hourlyForecastArray {
+                print("forecast data: \(data.temp), \(data.date), \(data.weatherIcon)")
             }
         }
     }
