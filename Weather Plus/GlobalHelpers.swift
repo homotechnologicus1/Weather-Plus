@@ -5,7 +5,7 @@
 //  Created by joe_mac on 01/30/2021.
 //
 
-import Foundation
+import UIKit
 
 func currentDateFromUnix(unixDate: Double?) -> Date? {
     if unixDate != nil {
@@ -13,4 +13,8 @@ func currentDateFromUnix(unixDate: Double?) -> Date? {
     } else {
         return Date()
     }
+}
+
+func getWeatherIcon(for type: String) -> UIImage? {
+    return UIImage(named: type)
 }
