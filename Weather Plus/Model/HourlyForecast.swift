@@ -47,8 +47,8 @@ class HourlyForecast {
             var forecastArray: [HourlyForecast] = []
             switch response.result {
             case .success(let value):
-                let json = JSON(value)
-                print("Result: ", json)
+//                let json = JSON(value)
+//                print("Result: ", json)
                 if let dictionary = value as? Dictionary<String, AnyObject> {
                     if let list = dictionary["data"] as? [Dictionary<String, AnyObject>] {
                         for item in list {

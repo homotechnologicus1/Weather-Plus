@@ -71,13 +71,28 @@ class WeatherView: UIView {
     
     func refreshData() {
         setupCurrentWeather()
+        setupWeatherInfo()
+        infoCollectionView.reloadData()
     }
     
     private func setupCurrentWeather() {
         cityNameLabel.text = currentWeather.city
         dateLabel.text = "Today, \(currentWeather.date.shortDate())"
-        tempLabel.text = "\(currentWeather.currentTempo)"
+        tempLabel.text = "\(currentWeather.currentTempo)°"
         weatherInfoLabel.text = currentWeather.weatherType
+    }
+    
+    private func setupWeatherInfo() {
+        let windInfo = WeatherInfo(infoText: String(format: "%.1fm/sec", currentWeather.windSpeed), nameText: nil, image: getWeatherIcon(for: "wind"))
+        let humidity = WeatherInfo(infoText: String(format: "%.0f%%", currentWeather.humidity), nameText: nil, image: getWeatherIcon(for: "humidity"))
+        let pressureInfo = WeatherInfo(infoText: String(format: "%.0fmb", currentWeather.pressure), nameText: nil, image: getWeatherIcon(for: "pressure"))
+        let visibilityInfo = WeatherInfo(infoText: String(format: "%.0fkm", currentWeather.visibility), nameText: nil, image: getWeatherIcon(for: "visibility"))
+        let feelsLike = WeatherInfo(infoText: String(format: "%.1f°C", currentWeather.feelsLike), nameText: nil, image: getWeatherIcon(for: "feelsLike"))
+        let uvInfo = WeatherInfo(infoText: String(format: "%.1f", currentWeather.uv), nameText: "UV Index", image: nil)
+        let sunriseInfo = WeatherInfo(infoText: currentWeather.sunrise, nameText: nil, image: getWeatherIcon(for: "sunrise"))
+        let sunsetInfo = WeatherInfo(infoText: currentWeather.sunset, nameText: nil, image: getWeatherIcon(for: "sunset"))
+        
+        weatherInfoData = [windInfo, humidity, pressureInfo, visibilityInfo, feelsLike, uvInfo, sunriseInfo, sunsetInfo]
     }
     
 }

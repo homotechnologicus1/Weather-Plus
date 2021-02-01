@@ -52,7 +52,7 @@
             <connections>
                 <outlet property="infoImageView" destination="gYJ-Kt-328" id="gn9-Ap-sB0"/>
                 <outlet property="infoLabel" destination="Fli-Rn-2GF" id="JgK-kt-hAE"/>
-                <outlet property="nameLabel" destination="vT4-cN-huL" id="O90-41-5Ma"/>
+                <outlet property="nameLabel" destination="vT4-cN-huL" id="a8U-YI-Ibo"/>
             </connections>
             <point key="canvasLocation" x="100" y="104"/>
         </collectionViewCell>

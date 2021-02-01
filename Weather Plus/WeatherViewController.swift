@@ -19,7 +19,6 @@ class WeatherViewController: UIViewController {
         super.viewDidLoad()
 
         
-        print("viewDidLoad's weatherScrollView.bounds", weatherScrollView.bounds)
     }
     
     override func viewDidAppear(_ animated: Bool) {
