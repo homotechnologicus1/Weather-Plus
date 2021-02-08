@@ -40,8 +40,15 @@ class HourlyForecast {
         self._weatherIcon = json["weather"]["icon"].stringValue
     }
     
-    class func downloadHourlyForecastWeather(completion: @escaping (_ hourlyForecast: [HourlyForecast]) -> Void) {
-        let HOURLYFORECAST_URL = "https://api.weatherbit.io/v2.0/forecast/hourly?city=Nicosia,CY&hours=24&key=a29d471fc46d40939f9c34ab3627c2b1"
+    class func downloadHourlyForecastWeather(location: WeatherLocation, completion: @escaping (_ hourlyForecast: [HourlyForecast]) -> Void) {
+        
+        var HOURLYFORECAST_URL: String!
+        
+        if !location.isCurrentLocation {
+            HOURLYFORECAST_URL = String(format: "https://api.weatherbit.io/v2.0/forecast/hourly?city=%@,%@&hours=24&key=a29d471fc46d40939f9c34ab3627c2b1", location.city, location.countryCode)
+        } else {
+            HOURLYFORECAST_URL = CURRENTLOCATIONHOURLYFORECAST_URL
+        }
         
         AF.request(HOURLYFORECAST_URL).responseJSON { (response) in
             var forecastArray: [HourlyForecast] = []

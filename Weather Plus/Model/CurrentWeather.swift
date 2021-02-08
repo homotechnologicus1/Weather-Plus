@@ -107,8 +107,14 @@ class CurrentWeather {
 
     
     
-    func getCurrentWeather(completion: @escaping (_ success: Bool)->Void) {
-        let LOCATIONAPI_URL = "https://api.weatherbit.io/v2.0/current?city=Nicosia,CY&key=a29d471fc46d40939f9c34ab3627c2b1"
+    func getCurrentWeather(location: WeatherLocation, completion: @escaping (_ success: Bool)->Void) {
+        var LOCATIONAPI_URL: String!
+        
+        if !location.isCurrentLocation {
+            LOCATIONAPI_URL = String(format: "https://api.weatherbit.io/v2.0/current?city=%@,%@&key=a29d471fc46d40939f9c34ab3627c2b1", location.city, location.countryCode)
+        } else {
+            LOCATIONAPI_URL = CURRENTLOCATION_URL
+        }
         
         AF.request(LOCATIONAPI_URL).responseJSON { (response) in
             switch response.result {
