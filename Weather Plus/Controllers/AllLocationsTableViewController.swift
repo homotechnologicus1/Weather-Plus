@@ -80,7 +80,7 @@ class AllLocationsTableViewController: UITableViewController {
     private func loadFromUserDefaults() {
         if let data = userDefaults.value(forKey: "Locations") as? Data {
             savedLocations = try? PropertyListDecoder().decode(Array<WeatherLocation>.self, from: data)
-            print("We have \(savedLocations?.count) locations in UserDefaults.")
+            print("We have \(savedLocations?.count ?? 0) locations in UserDefaults.")
         }
     }
 

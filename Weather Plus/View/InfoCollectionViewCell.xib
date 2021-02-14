@@ -54,7 +54,7 @@
                 <outlet property="infoLabel" destination="Fli-Rn-2GF" id="JgK-kt-hAE"/>
                 <outlet property="nameLabel" destination="vT4-cN-huL" id="a8U-YI-Ibo"/>
             </connections>
-            <point key="canvasLocation" x="100" y="104"/>
+            <point key="canvasLocation" x="100.00000000000001" y="103.79464285714285"/>
         </collectionViewCell>
     </objects>
 </document>
