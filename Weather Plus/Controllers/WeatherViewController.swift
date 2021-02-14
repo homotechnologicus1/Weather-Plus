@@ -29,6 +29,7 @@ class WeatherViewController: UIViewController {
         super.viewDidLoad()
 
         locationManagerStart()
+        weatherScrollView.delegate = self
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -48,6 +49,11 @@ class WeatherViewController: UIViewController {
         getWeeklyWeather(weatherView: weatherView)
         getHourlyWeather(weatherView: weatherView)  */
     }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        locationManagerStop()
+    }
 
     // MARK:- Download Weather
     
@@ -56,6 +62,7 @@ class WeatherViewController: UIViewController {
 //        print("We have \(allLocations.count) locations.")
         createWeatherViews()
         addWeatherToScrollView()
+        setPageControlPageNumber()
     }
     
     private func createWeatherViews() {
@@ -113,6 +120,16 @@ class WeatherViewController: UIViewController {
         }
     }
     
+    // MARK: - PageControl
+    
+    private func setPageControlPageNumber() {
+        pageControl.numberOfPages = allWeatherViews.count
+    }
+    
+    private func updatePageControlSelectedPage(currentPage: Int) {
+        pageControl.currentPage = currentPage
+    }
+    
     // MARK: - Location Manager
     private func locationManagerStart() {
         if locationManager == nil {
@@ -152,5 +169,12 @@ class WeatherViewController: UIViewController {
 extension WeatherViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print("Failed to get location, \(error.localizedDescription)")
+    }
+}
+
+extension WeatherViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let value = scrollView.contentOffset.x / scrollView.frame.size.width
+        updatePageControlSelectedPage(currentPage: Int(round(value)))
     }
 }
