@@ -36,7 +36,7 @@
                                     <barButtonItem systemItem="add" id="HX3-yq-5bp">
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <connections>
-                                            <segue destination="6rE-Pv-DF0" kind="show" id="OpX-5i-vVe"/>
+                                            <segue destination="6rE-Pv-DF0" kind="show" identifier="allLocationSeg" id="OpX-5i-vVe"/>
                                         </connections>
                                     </barButtonItem>
                                 </items>
@@ -56,7 +56,7 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="pageControl" destination="XHT-Ca-Gxk" id="5Kh-Mv-bU9"/>
+                        <outlet property="pageControl" destination="XHT-Ca-Gxk" id="I7c-m1-jLr"/>
                         <outlet property="weatherScrollView" destination="mpK-fo-Yfw" id="f4S-1s-UcY"/>
                     </connections>
                 </viewController>
@@ -76,21 +76,37 @@
                             <rect key="frame" x="0.0" y="136" width="414" height="55"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qpt-OD-hWc">
-                                    <rect key="frame" x="331" y="12.5" width="75" height="30"/>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qpt-OD-hWc">
+                                    <rect key="frame" x="366" y="7.5" width="40" height="40"/>
                                     <constraints>
-                                        <constraint firstAttribute="height" constant="30" id="BMb-t1-nPk"/>
-                                        <constraint firstAttribute="width" constant="75" id="cew-iH-sji"/>
+                                        <constraint firstAttribute="height" constant="40" id="BMb-t1-nPk"/>
+                                        <constraint firstAttribute="width" constant="40" id="cew-iH-sji"/>
                                     </constraints>
-                                    <state key="normal" title="Add"/>
+                                    <state key="normal" image="add"/>
                                     <connections>
                                         <segue destination="pfA-J1-d0F" kind="show" identifier="chooseLocationSeg" id="Uqp-kc-lUV"/>
                                     </connections>
                                 </button>
+                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="8Ui-b6-yjf">
+                                    <rect key="frame" x="8" y="12" width="135" height="32"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="135" id="VRI-VG-K7o"/>
+                                    </constraints>
+                                    <segments>
+                                        <segment title="°C"/>
+                                        <segment title="°F"/>
+                                    </segments>
+                                    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <connections>
+                                        <action selector="tempSegmentValueChanged:" destination="6rE-Pv-DF0" eventType="valueChanged" id="38x-dM-F1Y"/>
+                                    </connections>
+                                </segmentedControl>
                             </subviews>
-                            <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
+                                <constraint firstItem="8Ui-b6-yjf" firstAttribute="centerY" secondItem="tZh-JJ-idh" secondAttribute="centerY" id="drC-Tj-IXO"/>
                                 <constraint firstAttribute="trailing" secondItem="Qpt-OD-hWc" secondAttribute="trailing" constant="8" id="gfU-Eo-Iwa"/>
+                                <constraint firstItem="8Ui-b6-yjf" firstAttribute="leading" secondItem="tZh-JJ-idh" secondAttribute="leading" constant="8" id="nse-f5-DCK"/>
                                 <constraint firstItem="Qpt-OD-hWc" firstAttribute="centerY" secondItem="tZh-JJ-idh" secondAttribute="centerY" id="owL-Hc-4Xq"/>
                             </constraints>
                         </view>
@@ -140,6 +156,10 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="ctZ-b4-MyG"/>
+                    <connections>
+                        <outlet property="footerView" destination="tZh-JJ-idh" id="vNJ-pT-A1e"/>
+                        <outlet property="tempSegmentOutlet" destination="8Ui-b6-yjf" id="c0H-KE-2Ej"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="m0Q-OG-tel" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -207,4 +227,7 @@
             <point key="canvasLocation" x="1279.7101449275362" y="87.723214285714278"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="add" width="30" height="30"/>
+    </resources>
 </document>

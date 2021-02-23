@@ -23,6 +23,8 @@ class WeatherViewController: UIViewController {
     var allLocations: [WeatherLocation] = []
     var allWeatherViews: [WeatherView] = []
     var allWeatherData: [CityTempData] = []
+    
+    var shouldRefresh = true
 
     // MARK:- ViewLifecycle
     override func viewDidLoad() {
@@ -34,8 +36,12 @@ class WeatherViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
-        locationAuthCheck()
+
+        if shouldRefresh {
+            allLocations = []
+            allWeatherViews = []
+            locationAuthCheck()
+        }
         
         /*
         let weatherView = WeatherView()
@@ -91,6 +97,7 @@ class WeatherViewController: UIViewController {
         weatherView.currentWeather = CurrentWeather()
         weatherView.currentWeather.getCurrentWeather(location: location) { (success) in
             weatherView.refreshData()
+            self.generateWeatherList()
         }
     }
     
@@ -163,7 +170,36 @@ class WeatherViewController: UIViewController {
             locationAuthCheck()
         }
     }
+    
+    private func generateWeatherList() {
+        allWeatherData = []
+        
+        for weatherView in allWeatherViews {
+            let tempData = CityTempData(city: weatherView.currentWeather.city, temp: weatherView.currentWeather.currentTempo)
+            allWeatherData.append(tempData)
+        }
+//        print("We have \(allWeatherData.count) items in allWeatherData")
+    }
+    
+    // MARK: - Navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "allLocationSeg" {
+            let vc = segue.destination as! AllLocationsTableViewController
+            vc.weatherData = allWeatherData
+            vc.delegate = self
+        }
+    }
 
+}
+
+extension WeatherViewController: AllLocationsTableViewControllerDelegate {
+    func didChooseLocation(atIndex: Int, shouldRefresh: Bool) {
+        let viewNumber = CGFloat(integerLiteral: atIndex)
+        let newOffset = CGPoint(x: weatherScrollView.frame.width * viewNumber, y: 0)
+        weatherScrollView.setContentOffset(newOffset, animated: true)
+        updatePageControlSelectedPage(currentPage: atIndex)
+        self.shouldRefresh = shouldRefresh
+    }
 }
 
 extension WeatherViewController: CLLocationManagerDelegate {

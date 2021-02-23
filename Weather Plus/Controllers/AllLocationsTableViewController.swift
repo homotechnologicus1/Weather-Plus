@@ -7,12 +7,23 @@
 
 import UIKit
 
+protocol AllLocationsTableViewControllerDelegate {
+    func didChooseLocation(atIndex: Int, shouldRefresh: Bool)
+}
+
 class AllLocationsTableViewController: UITableViewController {
+    
+    // MARK: - IBOutlets
+    @IBOutlet weak var tempSegmentOutlet: UISegmentedControl!
+    @IBOutlet weak var footerView: UIView!
     
     // MARK:- Variables
     let userDefaults = UserDefaults.standard
     var savedLocations: [WeatherLocation]?
     var weatherData: [CityTempData]?
+    
+    var delegate: AllLocationsTableViewControllerDelegate?
+    var shouldRefresh = false
     
     // MARK:- View lifecycle
     override func viewDidLoad() {
@@ -20,6 +31,27 @@ class AllLocationsTableViewController: UITableViewController {
 
         loadFromUserDefaults()
     }
+    
+    // MARK: - IBActions
+    @IBAction func tempSegmentValueChanged(_ sender: UISegmentedControl) {
+        updateTempFormatInUserDefaults(newValue: sender.selectedSegmentIndex)
+    }
+    
+    // MARK: - UserDefaults
+    private func updateTempFormatInUserDefaults(newValue: Int) {
+        shouldRefresh = true
+        userDefaults.set(newValue, forKey: "TempFormat")
+        userDefaults.synchronize()
+    }
+    
+    private func loadTempFormatFromUserDefaults() {
+        if let index = userDefaults.value(forKey: "TempFormat") {
+            tempSegmentOutlet.selectedSegmentIndex = index as! Int
+        } else {
+            tempSegmentOutlet.selectedSegmentIndex = 0
+        }
+    }
+    
 
     // MARK: - Table view data source
 
@@ -40,7 +72,9 @@ class AllLocationsTableViewController: UITableViewController {
     // MARK:- TableViewDelegate
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        tableView.deselectRow(at: indexPath, animated: true)
+        delegate?.didChooseLocation(atIndex: indexPath.row, shouldRefresh: shouldRefresh)
+        dismiss(animated: true, completion: nil)
     }
     
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -51,7 +85,6 @@ class AllLocationsTableViewController: UITableViewController {
         if editingStyle == .delete {
             let locationToDelete = weatherData?[indexPath.row]
             weatherData?.remove(at: indexPath.row)
-            
             removeLocationFromSavedLocations(location: locationToDelete!.city)
             tableView.reloadData()
         }
@@ -71,6 +104,7 @@ class AllLocationsTableViewController: UITableViewController {
     }
     
     private func saveNewLocationsToUserDefaults() {
+        shouldRefresh = true
         userDefaults.set(try? PropertyListEncoder().encode(savedLocations!), forKey: "Locations")
         userDefaults.synchronize()
     }
@@ -97,7 +131,10 @@ class AllLocationsTableViewController: UITableViewController {
 
 extension AllLocationsTableViewController: ChooseCityViewControllerDelegate {
     func didAdd(newLocation: WeatherLocation) {
-        print("We have an added new location", newLocation.country, newLocation.city)
+        shouldRefresh = true
+
+        weatherData?.append(CityTempData(city: newLocation.city, temp: 0.0))
+        tableView.reloadData()
     }
     
 }

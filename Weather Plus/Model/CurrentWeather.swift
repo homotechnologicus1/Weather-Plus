@@ -139,6 +139,7 @@ class CurrentWeather {
                 completion(true)
                 
             case .failure:
+                self._city = location.city
                 completion(false)
                 print("No result found for current location")
             }
