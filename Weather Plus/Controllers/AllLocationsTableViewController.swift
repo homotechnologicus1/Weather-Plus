@@ -28,8 +28,10 @@ class AllLocationsTableViewController: UITableViewController {
     // MARK:- View lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        loadFromUserDefaults()
+        tableView.tableFooterView = footerView
+        
+        loadLocationsFromUserDefaults()
+        loadTempFormatFromUserDefaults()
     }
     
     // MARK: - IBActions
@@ -37,22 +39,6 @@ class AllLocationsTableViewController: UITableViewController {
         updateTempFormatInUserDefaults(newValue: sender.selectedSegmentIndex)
     }
     
-    // MARK: - UserDefaults
-    private func updateTempFormatInUserDefaults(newValue: Int) {
-        shouldRefresh = true
-        userDefaults.set(newValue, forKey: "TempFormat")
-        userDefaults.synchronize()
-    }
-    
-    private func loadTempFormatFromUserDefaults() {
-        if let index = userDefaults.value(forKey: "TempFormat") {
-            tempSegmentOutlet.selectedSegmentIndex = index as! Int
-        } else {
-            tempSegmentOutlet.selectedSegmentIndex = 0
-        }
-    }
-    
-
     // MARK: - Table view data source
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -103,18 +89,32 @@ class AllLocationsTableViewController: UITableViewController {
         }
     }
     
+    // MARK:- UserDefaults
+    
     private func saveNewLocationsToUserDefaults() {
         shouldRefresh = true
         userDefaults.set(try? PropertyListEncoder().encode(savedLocations!), forKey: "Locations")
         userDefaults.synchronize()
     }
     
-    // MARK:- UserDefaults
-    
-    private func loadFromUserDefaults() {
+    private func loadLocationsFromUserDefaults() {
         if let data = userDefaults.value(forKey: "Locations") as? Data {
             savedLocations = try? PropertyListDecoder().decode(Array<WeatherLocation>.self, from: data)
             print("We have \(savedLocations?.count ?? 0) locations in UserDefaults.")
+        }
+    }
+    
+    private func updateTempFormatInUserDefaults(newValue: Int) {
+        shouldRefresh = true
+        userDefaults.set(newValue, forKey: "TempFormat")
+        userDefaults.synchronize()
+    }
+    
+    private func loadTempFormatFromUserDefaults() {
+        if let index = userDefaults.value(forKey: "TempFormat") {
+            tempSegmentOutlet.selectedSegmentIndex = index as! Int
+        } else {
+            tempSegmentOutlet.selectedSegmentIndex = 0
         }
     }
 
