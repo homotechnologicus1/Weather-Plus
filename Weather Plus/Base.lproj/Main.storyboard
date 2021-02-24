@@ -44,7 +44,7 @@
                             </toolbar>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="84i-Me-TGb" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="BND-eh-X8C"/>
                             <constraint firstItem="84i-Me-TGb" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="O3c-TP-Iac"/>
